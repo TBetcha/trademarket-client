@@ -247,9 +247,9 @@ export function SignUpForm() {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="office" />
+                      <RadioGroupItem value="work" />
                     </FormControl>
-                    <FormLabel className="font-normal">Office</FormLabel>
+                    <FormLabel className="font-normal">Work</FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
@@ -269,10 +269,15 @@ export function SignUpForm() {
     </Form>
   );
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof signUpFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof signUpFormSchema>) {
     console.log(values);
+    let response = await fetch("http://localhost:5051/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // 👈 sets the media type
+      },
+      body: JSON.stringify(values),
+    });
+    response = await response.json();
   }
 }
