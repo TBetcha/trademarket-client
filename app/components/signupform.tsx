@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const addressTypeEnum = z.enum(["home", "work", "other"]);
 
@@ -90,6 +91,7 @@ export function SignUpForm() {
     },
   });
 
+  const router = useRouter();
   const [signedUp, setSignedUp] = useState(false);
   const [userCombinedName, setUserCombinedName] = useState("");
 
@@ -300,6 +302,7 @@ export function SignUpForm() {
     if (data.isSuccess) {
       setSignedUp(true);
       setUserCombinedName(data.result.firstName + " " + data.result.lastName);
+      setTimeout(() => router.push("./"));
     }
   }
 }
